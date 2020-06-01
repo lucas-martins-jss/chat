@@ -1,0 +1,112 @@
+html,
+body {
+    height: 100%;
+    background-color: #262626;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+p {
+    font-size: 2em;
+    color: #FFF;
+}
+
+.p2 {
+    font-size: 1.5em;
+    color: gray;
+    text-align: center;
+}
+
+.p3 {
+    font-size: 1.8em;
+    color: white;
+    text-align: center;
+    text-shadow: 0 0 20px#fff;
+}
+
+.chat {
+    margin-top: 35px;
+    font-size: 2.5em;
+    padding: 0 20px;
+    text-shadow: 0 0 20px#ff0000;
+    color: #FFF;
+}
+
+.topo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 250px;
+    padding-right: 250px;
+}
+
+.titulo {
+    margin-top: 35px;
+    font-size: 2.5em;
+    padding: 0 20px;
+    text-shadow: 0 0 20px#D7DE1F;
+    color: #FFF;
+}
+
+#chat {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #FFF;
+}
+
+input {
+    width: 600px;
+    border: 1px solid #ddd;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 14px;
+    background-color: #A6A6A6;
+}
+
+button {
+    width: 600px;
+    height: 50px;
+    font-size: 14px;
+    background: #069;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+    color: #FFF;
+    margin-top: 10px;
+    border: none;
+}
+
+button:hover {
+    transform: scale(1.04);
+    transition: 0.4s;
+}
+
+.messages {
+    width: 600px;
+    height: 400px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.gifs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.gif {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 50px;
+}

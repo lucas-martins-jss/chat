@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <Title> Chat do Lucas</Title>
+
+    <link rel="stylesheet" href="estilo.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div class="topo">
+        <h1 class="titulo">Sistemas em Tempo Real</h1>
+        <p>Aspectos de um sistema em tempo Real:</p>
+        <p class="p2">
+            Estes sistemas, além de executarem as tarefas de processamento e controle de informações, possuem a característica de que suas respostas ao ambiente devem ser dadas em um tempo hábil o suficiente para que o sistema não entre em um estado inconsistente
+            ou inválido.
+        </p>
+        <p class="p2">Um Sistema de Tempo Real é, portanto, o software que gerencia os recursos de um sistema computacional, com o objetivo de garantir com que todos os eventos sejam atendidos dentro de suas restrições de tempo, e gerenciados da forma mais eficiente
+            possível. O software responsável pelo gerenciamento dos recursos computacionais também é chamado de Kernel (ou núcleo) do Sistema de Tempo Real, e conhecido no mercado como RTOS (Real-Time Operation System) ou Sistema Operacional de Tempo
+            Real.
+        </p>
+
+        <h1 class="chat">Chat em tempo real</h1>
+        <img src="https://media.giphy.com/media/MfnJATkfrAIBG/giphy.gif" alt="" class="gif">
+
+        <p class="p">Cliente/Servidor</p>
+        <p class="p2">A característica do modelo cliente-servidor, descreve a relação de programas numa aplicação. O componente de servidor fornece uma função ou serviço a um ou mais clientes, que iniciam os pedidos de serviço.</p>
+        <p class="p3">Características do Cliente</p>
+        <p class="p2">
+            Inicia pedidos para servidores; Espera por respostas; Recebe respostas; Normalmente interage diretamente com os servidores através de seu software aplicação especifico, que lhe possibilita a comunicação com o servidor; Utiliza recursos da rede.
+        </p>
+        <p class="p3">Características do Servidor</p>
+        <p class="p2">
+            Sempre espera por um pedido de um cliente; Atende os pedidos e, em seguida, responde aos clientes com os dados solicitados; Podem se conectar com outros servidores para atender uma solicitação específica do cliente; jamais podem se comunicar. Fornece
+            recursos de rede. Normalmente interage diretamente com os usuários finais através de qualquer interface com o usuário; Estrutura o sistema.
+        </p>
+    </div>
+
+
+
+    <!-- HTML BÁSICO-->
+    <form id="chat">
+        <input type="text" name="username" placeholder="Digite seu usuário">
+        <div class="messages"></div>
+        <input id="msg" type="text" name="message" placeholder="Digite sua mensagem">
+        <button type="submit">Enviar</button>
+    </form>
+    <div class="gifs">
+        <img src="https://media.giphy.com/media/kdFc8fubgS31b8DsVu/giphy.gif" alt="" class="gif">
+        <img src="https://media.giphy.com/media/XH9wwXfUXu91wAJwN5/giphy.gif" alt="" class="gif">
+        <img src="https://media.giphy.com/media/XAxylRMCdpbEWUAvr8/giphy.gif" alt="" class="gif">
+        <img src="https://media.giphy.com/media/fsEaZldNC8A1PJ3mwp/giphy.gif" alt="" class="gif">
+    </div>
+
+
+    <script type="text/javascript">
+        function limpar() {
+            document.getElementById('msg').value = "";
+        }
+    </script>
+    <script type="text/javascript">
+        var socket = io('http://192.168.0.111:5000'); //Endereço da aplicação
+
+        function renderMessage(message) { //Função que exibe a mensagem na aplicação
+            $('.messages').append('<div class="message">' + message.author + ': ' + message.message + '</div>');
+        };
+
+        socket.on('previousMessages', function(messages) { //Funçao para percorrer o array de messages
+            for (message of messages) {
+                renderMessage(message); //exibe todas as mensagens enviadas
+            }
+        })
+
+
+        socket.on('receivedMessage', function(message) { //Função que encaminha a mensagem para o servidor 
+            renderMessage(message);
+
+        });
+
+        $('#chat').submit(function(event) {
+            event.preventDefault();
+
+            var author = $('input[name=username]').val(); // a variavel author recebe o nome indicado no input username
+            var message = $('input[name=message]').val(); // a variavel message recebe a mensagem escrita no input message
+
+            if (author.length && message.length) { //verifica se os campos contém algo escrito
+                var messageObject = { //se sim  a variavel messageObject recebe o nome do autor e mensagem escrita por ele.
+                    author: author,
+                    message: message,
+                };
+
+                renderMessage(messageObject);
+
+                socket.emit('sendMessage', messageObject)
+            }
+        })
+    </script>
+</body>
